@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('hello.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            background: linear-gradient(to right, #00041e, #02386e);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow: hidden;
+            opacity: 0; /* Start hidden */
+            animation: fadeIn 1s forwards; /* Fade in animation */
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .login-box {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .login-box h1 {
+            margin-bottom: 20px;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .textbox {
+            margin-bottom: 20px;
+        }
+
+        .textbox input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid #FFFFFF;
+            background: none;
+            outline: none;
+            font-size: 18px;
+            color: #FFFFFF;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #FFFFFF;
+        }
+
+        .checkbox input {
+            margin-right: 10px;
+        }
+
+        .btn {
+            width: 100%;
+            background: linear-gradient(to right, #00041e, #02386e);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #FFFFFF;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #55555576;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            background: transparent;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
+        .social-btn i {
+            color: inherit;
+        }
+
+        .illustration {
+            display: none;
+        }
+
+        .illustration img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .light {
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.5);
+            animation: moveLight 5s linear infinite;
+        }
+
+        @keyframes moveLight {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(100%, 0); }
+            50% { transform: translate(100%, 100%); }
+            75% { transform: translate(0, 100%); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @media (min-width: 768px) {
+            .illustration {
+                display: block;
+                flex: 1;
+                margin-left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="light"></div>
+        <div class="login-box">
+            <h1>Login</h1>
+            <form onsubmit="handleLogin(event)">
+                <div class="textbox">
+                    <input type="text" placeholder="Email" name="email" id="email" required>
+                </div>
+                <div class="textbox">
+                    <input type="password" placeholder="Password" name="password" id="password" required>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" name="remember" id="remember">
+                    <label for="remember">Remember Password</label>
+                </div>
+                <input type="submit" class="btn" value="Login">
+                <div class="social-login">
+                    <button class="social-btn"><i class="fab fa-twitter" style="color:red;"></i></button>
+                    <button class="social-btn"><i class="fab fa-apple" style="color:red;"></i></button>
+                    <button class="social-btn"><i class="fab fa-facebook-f" style="color:red;"></i></button>
+                    <button class="social-btn"><i class="fab fa-google" style="color:red;"></i></button>
+                </div>
+            </form>
+        </div>
+        <div class="illustration">
+            <img src="main.png" alt="Illustration">
+        </div>
+    </div>
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email && password) {
+                alert('Login is successful!');
+                localStorage.setItem('email', email);
+
+                document.getElementById('email').value = '';
+                document.getElementById('password').value = '';
+
+                localStorage.removeItem('email');
+            } else {
+                alert('Please enter both email and password.');
+            }
+        }
+
+        window.onload = function() {
+            const savedEmail = localStorage.getItem('email');
+            if (savedEmail) {
+                document.getElementById('email').value = savedEmail;
+            }
+        }
+    </script>
+</body>
+</html>
